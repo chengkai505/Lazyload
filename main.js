@@ -1,6 +1,9 @@
 'use strict';
 let lazyload = {};
 
+lazyload.img = {};
+lazyload.background = {};
+
 lazyload.main = function() {
 	lazyload.img.main();
 	lazyload.background.main();
@@ -29,7 +32,7 @@ lazyload.img.main = function() {
 		});
 	});
 	for (let i = 0; i < lazyload.dom.length; i++) {
-		if (lazyload.dom[i].getElementsByTagName("img").length > 0)
+		if (lazyload.dom[i].dataset.src)
 			observer.observe(lazyload.dom[i]);
 	}
 };
@@ -39,21 +42,17 @@ lazyload.background.main = function() {
 		entries.forEach(function (entry) {
 			if (entry.isIntersecting) {
 				let img = new Image;
-				if (img.complete) {
+				img.onload = function() {
+					entry.target.style.backgroundImage = 'url(' + entry.target.dataset.background + ')';
 					entry.target.classList.add("done");
-				} else {
-					img.addEventListener("load", function() {
-						entry.target.style.backgroundImage = entry.target.dataset.background;
-						entry.target.classList.add("done");
-					});
-				}
+				};
 				img.src = entry.target.dataset.background;
 				observer.unobserve(entry.target);
 			}
 		});
 	});
 	for (let i = 0; i < lazyload.dom.length; i++) {
-		if (lazyload.dom[i].getElementsByTagName("img").length > 0)
+		if (lazyload.dom[i].dataset.background)
 			observer.observe(lazyload.dom[i]);
 	}
 }

@@ -1,9 +1,0 @@
-.lazyload {
-    position: relative;
-	background: #eee;
-	transition: all .2s ease;
-    z-index: 0;
-}
-.lazyload.done {
-	background: transparent;
-}

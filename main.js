@@ -1,6 +1,10 @@
 let lazyload = {};
 
 lazyload.main = function() {
+	lazyload.img.main();
+};
+
+lazyload.img.main = function() {
 	let observer = new IntersectionObserver(function (entries, observer) {
 		entries.forEach(function (entry) {
 			if (entry.isIntersecting) {
@@ -23,9 +27,14 @@ lazyload.main = function() {
 		});
 	});
 	for (let i = 0; i < lazyload.dom.length; i++) {
-		observer.observe(lazyload.dom[i]);
+		if (lazyload.dom[i].getElementsByTagName("img").length > 0)
+			observer.observe(lazyload.dom[i]);
 	}
 };
+
+lazyload.background.main = function() {
+	
+}
 
 lazyload.dom = document.getElementsByClassName("lazyload");
 if (lazyload.dom.length > 0) lazyload.main();

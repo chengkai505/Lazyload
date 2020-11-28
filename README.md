@@ -1,10 +1,10 @@
 # Lazyload
 
-Simple and seo friendly.
+Simply, seo friendly, and automatically.
 
 ## Image
 
-Before:
+Define data-src at the container of image, it will create an element of img and append to container.
 
 ```html
 <picture class="lazyload" data-alt="IMG-ALT" data-src="IMG-URL" data-srcset="IMG-SRCSET">
@@ -14,13 +14,18 @@ Before:
 </picture>
 ```
 
-After:
+## Background
+
+Define data-background at the element, it will set an inline style of background-image when image loaded.
 
 ```html
-<picture class="lazyload done" data-alt="IMG-ALT" data-src="IMG-URL" data-srcset="IMG-SRCSET">
-  <img class="loaded" alt="IMG-ALT" src="IMG-URL" srcset="IMG-SRCSET">
+<div id="lazyload-1" class="lazyload" data-background="IMG-URL">
   <noscript>
-    <img alt="IMG-ALT" src="IMG-URL" srcset="IMG-SRCSET">
+    <style>
+      #lazyload-1 {
+        background-image: url(IMG-URL)
+      }
+    </style>
   </noscript>
-</picture>
+</div>
 ```

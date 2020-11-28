@@ -3,6 +3,7 @@ let lazyload = {};
 
 lazyload.main = function() {
 	lazyload.img.main();
+	lazyload.background.main();
 };
 
 lazyload.img.main = function() {
@@ -34,7 +35,27 @@ lazyload.img.main = function() {
 };
 
 lazyload.background.main = function() {
-	
+	let observer = new IntersectionObserver(function (entries, observer) {
+		entries.forEach(function (entry) {
+			if (entry.isIntersecting) {
+				let img = new Image;
+				if (img.complete) {
+					entry.target.classList.add("done");
+				} else {
+					img.addEventListener("load", function() {
+						entry.target.style.backgroundImage = entry.target.dataset.background;
+						entry.target.classList.add("done");
+					});
+				}
+				img.src = entry.target.dataset.background;
+				observer.unobserve(entry.target);
+			}
+		});
+	});
+	for (let i = 0; i < lazyload.dom.length; i++) {
+		if (lazyload.dom[i].getElementsByTagName("img").length > 0)
+			observer.observe(lazyload.dom[i]);
+	}
 }
 
 lazyload.dom = document.getElementsByClassName("lazyload");

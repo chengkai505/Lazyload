@@ -1,6 +1,6 @@
 # Lazyload
 
-Simple, seo friendly.
+Simple and seo friendly.
 
 ## Image
 

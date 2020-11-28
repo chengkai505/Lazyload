@@ -1,0 +1,10 @@
+.lazyload img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0;
+	transition: all .5s ease;
+}
+.lazyload img.loaded {
+	opacity: 1;
+}
